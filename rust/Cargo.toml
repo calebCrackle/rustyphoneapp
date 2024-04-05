@@ -1,0 +1,17 @@
+[package]
+name = "rustyphoneapp"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "rustyphoneapp"
+crate-type = ["staticlib", "cdylib"]
+
+[dependencies]
+libc = "0.2"
+jni = { version = "0.5.2", optional = true, default-features = false }
+
+[features]
+default = ["jni"]
