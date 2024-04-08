@@ -34,6 +34,8 @@ const invoke = async () => {
   try {
     const eventId = await RustBridge.logevent('Party', 'My House');
     console.log(`Created a new event with id ${eventId}`);
+    const hello = await RustBridge.sayHelloWorld('IOS');
+    console.log(`RUST: ${hello}`);
   } catch (e) {
     console.error(e);
   }

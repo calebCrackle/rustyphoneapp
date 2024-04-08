@@ -1,4 +1,4 @@
-ARCHS_IOS = i386-apple-ios x86_64-apple-ios armv7-apple-ios armv7s-apple-ios aarch64-apple-ios
+ARCHS_IOS = x86_64-apple-ios aarch64-apple-ios
 ARCHS_ANDROID = aarch64-linux-android armv7-linux-androideabi i686-linux-android
 LIB=librustyphoneapp.a
 all: ios android
