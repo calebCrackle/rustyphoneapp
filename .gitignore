@@ -69,3 +69,6 @@ rust/target
 rust/.cargo
 
 NDK
+
+*.swp
+*.swo

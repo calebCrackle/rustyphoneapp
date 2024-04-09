@@ -32,10 +32,8 @@ const { RustBridge } = ReactNative.NativeModules;
 const invoke = async () => {
   console.log(`Pressed`);
   try {
-    const eventId = await RustBridge.logevent('Party', 'My House');
-    console.log(`Created a new event with id ${eventId}`);
-    const hello = await RustBridge.sayHelloWorld('IOS');
-    console.log(`RUST: ${hello}`);
+    const response = await RustBridge.invoke("{\"method\": \"marco\", \"args\": []}");
+    console.log(`response ${response}`);
   } catch (e) {
     console.error(e);
   }

@@ -17,10 +17,9 @@ class RustBridge(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
     override fun getName() = "RustBridge"
 
     @ReactMethod
-    fun logevent(name: String, location: String, promise: Promise) {
-        Log.d("CalendarModule", "Create event called with name: $name and location: $location");
-        promise.resolve(helloWorld("FunnyHats"));
+    fun invoke(request: String, promise: Promise) {
+        promise.resolve(rustInvoke(request));
     }
 
-    private external fun helloWorld(seed: String): String
+    private external fun rustInvoke(request: String): String
 }

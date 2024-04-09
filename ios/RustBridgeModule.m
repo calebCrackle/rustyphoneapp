@@ -28,13 +28,12 @@ struct StringPtr asPtr(NSString *name) {
 @end
 @implementation RustBridgeModule
 
-//RCT_EXTERN_METHOD(sayHelloWorld:(NSString*)name resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
-RCT_EXPORT_METHOD(sayHelloWorld:(NSString *)name
+RCT_EXPORT_METHOD(invoke:(NSString *)name
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 {
   struct StringPtr strptr = asPtr(name);
-  struct StringPtr *result = rust_string_ptr(hello_world(&strptr));
+  struct StringPtr *result = rust_string_ptr(rustInvoke(&strptr));
   NSData *data = [NSData dataWithBytes:result->ptr length:result->len];
   NSString* resultstr = [NSString stringWithUTF8String:[data bytes]];
   resolve(resultstr);

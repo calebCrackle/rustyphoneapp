@@ -1,4 +1,5 @@
 extern crate libc;
+extern crate rustybitcoin;
 
 mod string;
 
@@ -19,10 +20,15 @@ pub unsafe extern fn rust_string_ptr_destroy(s: *mut StringPtr) {
   let _ = Box::from_raw(s);
 }
 
+//Plugin Function for external library
+pub fn invoke(request: String) -> String {
+    rustybitcoin::invoke(request)
+}
+
 #[no_mangle]
-pub unsafe extern fn hello_world(name: *mut StringPtr) -> *mut String {
-  let name = (*name).as_str();
-  let response = format!("Hello {}!", name);
+pub unsafe extern fn rustInvoke(request: *mut StringPtr) -> *mut String {
+  let request = (*request).as_str().to_string();
+  let response = invoke(request);
   Box::into_raw(Box::new(response))
 }
 
@@ -35,10 +41,12 @@ pub mod android {
   use self::jni::objects::{JClass, JString};
   use self::jni::sys::jstring;
 
+  use crate::invoke;
+
   #[no_mangle]
-  pub unsafe extern fn Java_com_rustyphoneapp_RustBridge_helloWorld(env: JNIEnv, _: JClass, name: JString) -> jstring {
-    let name: String = env.get_string(name).unwrap().into();
-    let response = format!("Hello {}!", name);
+  pub unsafe extern fn Java_com_rustyphoneapp_RustBridge_rustInvoke(env: JNIEnv, _: JClass, request: JString) -> jstring {
+    let request: String = env.get_string(request).unwrap().into();
+    let response = invoke(request);
     env.new_string(response).unwrap().into_inner()
   }
 }

@@ -16,4 +16,4 @@ void rust_string_destroy(struct String *s);
 
 void rust_string_ptr_destroy(struct StringPtr *s);
 
-struct String *hello_world(struct StringPtr *name);
+struct String *rustInvoke(struct StringPtr *name);
